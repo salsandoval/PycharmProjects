@@ -8,12 +8,9 @@ def home(request):
     if request.method == 'POST':
         pk = request.POST['account']
         return balance(request, pk)
-    content = {'form: form'}
+    content = {'form': form}
     return render(request, 'checkbook/index.html', content)
 
-
-def create_account(request):
-    return render(request, 'checkbook/CreateNewAccount.html')
 
 def balance(request, pk):
     account = get_object_or_404_(Account, pk=pk)
@@ -30,8 +27,6 @@ def balance(request, pk):
     content = {'account': account, 'table_contents': table_contents, 'balance': current_total}
     return render(request, 'checkbook/BalanceSheet.html', content)
 
-def transaction(request):
-    return render(request, 'checkbook/AddTransaction.html')
 
 def create_account(request):
     form = AccountForm(data=request.POST or None)
